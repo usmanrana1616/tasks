@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
+
 
 function App() {
+  const [count, setCount] = useState(0);
+  const [background, setbackground] = useState("gray");
+
+  var value = 25;
+  useEffect(() => {
+    var inter = setInterval(() => {
+      value = value - 1;
+      setCount(value);
+      if (value == 20) {
+        setbackground("black");
+        setCount(value);
+      } else if (value == 10) {
+        setbackground("yellow");
+        setCount(value);
+      }else if(value==5){
+        setbackground("lightblue");
+        setCount(value);
+      }
+       else if (value == 0) {
+        clearInterval(inter);
+      }
+    }, 1000);
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{display:'flex',flexDirection:'row',textAlign:'center',marginTop:20,  justifyContent:'center', }}>
+      <div style={{ background, color: "white", height: 30, width: 100 }}>
+        Count: {count}
+      </div>
     </div>
+
   );
 }
 
